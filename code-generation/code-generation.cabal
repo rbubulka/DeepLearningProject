@@ -8,7 +8,7 @@ cabal-version:       >=1.10
 extra-source-files:
 
 executable code-generation
-  hs-source-dirs:      src
+  hs-source-dirs:      src/Haskell
   main-is:             Main.hs
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
