@@ -69,7 +69,7 @@ display_expression([F, B], E, S) :-
     lambda_expression([F, B], 0, E),
     union(E, [F], En),
     display_expression(B, En, Bd),
-    atomic_list_concat(['(lambda (', F, ') ', Bd, ')'], S).
+    atomic_list_concat(['(λ (', F, ') ', Bd, ')'], S).
 
 %% display_operator(X, S) :-
 %%     expression(X, 0), !,

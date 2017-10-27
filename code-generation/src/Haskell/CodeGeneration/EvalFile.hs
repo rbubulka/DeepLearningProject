@@ -23,20 +23,20 @@ data ResultLine
   = ResultLine String Result
 
 instance Show ResultLine where
-  show (ResultLine p (PE err)) =
+  show (ResultLine p (PE _)) =
     intercalate "," [ p
-                    , "Nothing"
-                    , show err
+                    , "E"
+                    , "1"
                     ]
-  show (ResultLine p (EE err)) =
+  show (ResultLine p (EE _)) =
     intercalate "," [ p
-                    , "Nothing"
-                    , show err
+                    , "E"
+                    , "1"
                     ]
   show (ResultLine p (Val v)) =
     intercalate "," [ p
                     , displayValue v
-                    , "Nothing"
+                    , "0"
                     ]
 
 getResults :: String -> IO [ResultLine]
