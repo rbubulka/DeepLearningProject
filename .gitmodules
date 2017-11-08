@@ -1,0 +1,3 @@
+[submodule "code-generation/src/External"]
+	path = code-generation/src/External
+	url = git@github.com:jcolemang/scheme-analysis.git
