@@ -1,6 +1,6 @@
 import random
 
-MAX_DEPTH = 6
+MAX_DEPTH = 4
 LITERALS = [-2, -1, 0, 1, 2]
 VARIABLES = ['x', 'y']
 PRIM_PROCS = ['+', '-', '*', '/']

@@ -1,7 +1,10 @@
+%% lit(-3).
+lit(-2).
 lit(-1).
 lit(0).
 lit(1).
 lit(2).
+%% lit(3).
 
 valid_depth(N) :- N < 3.
 
@@ -97,6 +100,6 @@ display_program(S) :-
     atomic_list_concat([Ex, "\n"], S).
 
 generate_programs :-
-    open('../../data/output.txt', write, Stream),
+    open('output.txt', write, Stream),
     forall(display_program(P), write(Stream, P)),
     close(Stream).
