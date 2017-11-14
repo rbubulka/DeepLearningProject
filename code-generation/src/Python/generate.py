@@ -61,8 +61,6 @@ def random_valid_expression(depth=0, bindings=set()):
     else:
         i = random.randint(0, 10)
 
-        # i = random.randint(0 if len(bindings) != 0 else 1, 2 if depth < MAX_DEPTH else 1)
-
     if i < 3:
         return VarExpression(random.choice(list(bindings)))
     elif i < 5:
@@ -81,11 +79,41 @@ def random_valid_expression(depth=0, bindings=set()):
         return AppExpression(op, args)
 
 
+def random_expression(depth=0, bindings=set()):
+    if depth == 0:
+        i = 5
+    if depth == MAX_DEPTH:
+        if len(bindings) == 0:
+            i = 3
+        else:
+            i = random.randint(0, 4)
+    elif len(bindings) == 0:
+        i = random.randint(3, 10)
+    else:
+        i = random.randint(0, 10)
+
+    if i < 3:
+        return VarExpression(random.choice(VARIABLES))
+    elif i < 5:
+        return LitExpression(random.choice(LITERALS))
+    else:
+        if random.randint(0, 1):
+            op = VarExpression(random.choice(PRIM_PROCS))
+            args = [random_expression(depth=depth+1), random_expression(depth=depth+1)]
+        else:
+            formal = random.choice(VARIABLES)
+            new_binds = set(bindings)
+            new_binds.add(formal)
+            op = LambdaExpression([formal], random_expression(depth=depth+1))
+            args = [random_expression(depth=depth+1)]
+
+        return AppExpression(op, args)
+
 f = open(outfile, 'w')
-for e in LITERALS:
+for e in LITERALS + VARIABLES:
     f.write(str(e) + "\n")
 
 for _ in range(500000):
-    e = str(random_valid_expression())
+    e = str(random_expression())
     if len(e) > 1:
-        f.write(str(random_valid_expression()) + "\n")
+        f.write(e + "\n")

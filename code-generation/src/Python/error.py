@@ -15,6 +15,7 @@ infile, outfile = sys.argv[1], sys.argv[2]
 
 df = pd.read_csv(infile)
 df = df.sample(frac=1).reset_index(drop=True)
+df = df.head(200000)
 df['noerr'] = 1 - df['error']
 
 
@@ -71,6 +72,6 @@ print(model.evaluate(x=test_x, y=test_y, batch_size=800))
 
 model.save(outfile)
 
-tests = tokenize(np.array(['(/ 1 1)', '(/ 2 0)', '(/ 0 1)', '(/ 1 (- 1 1))']))
+tests = tokenize(np.array(['(/ 1 1)', '((λ (x) x) 1)', '((λ (x) y) 1)', '(/ 2 0)', '(/ 0 1)', '(/ 1 (- 1 1))']))
 
 print(model.predict(tests))
