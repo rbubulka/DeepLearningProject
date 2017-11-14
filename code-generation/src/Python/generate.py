@@ -1,6 +1,9 @@
 import random
+import sys
 
-MAX_DEPTH = 4
+depth, outfile = sys.argv[1], sys.argv[2]
+
+MAX_DEPTH = int(depth)
 LITERALS = [-2, -1, 0, 1, 2]
 VARIABLES = ['x', 'y']
 PRIM_PROCS = ['+', '-', '*', '/']
@@ -48,7 +51,7 @@ class LambdaExpression(Expression):
 def random_valid_expression(depth=0, bindings=set()):
     if depth == 0:
         i = 5
-    elif depth == MAX_DEPTH:
+    if depth == MAX_DEPTH:
         if len(bindings) == 0:
             i = 3
         else:
@@ -73,14 +76,16 @@ def random_valid_expression(depth=0, bindings=set()):
             new_binds = set(bindings)
             new_binds.add(formal)
             op = LambdaExpression([formal], random_valid_expression(depth=depth+1, bindings=new_binds))
-            args = [random_valid_expression(depth=depth+1)]
+            args = [random_valid_expression(depth=depth+1, bindings=new_binds)]
 
         return AppExpression(op, args)
 
 
-f = open('../../data/progs.txt', 'w')
+f = open(outfile, 'w')
 for e in LITERALS:
     f.write(str(e) + "\n")
 
-for _ in range(1000000):
-    f.write(str(random_valid_expression()) + "\n")
+for _ in range(500000):
+    e = str(random_valid_expression())
+    if len(e) > 1:
+        f.write(str(random_valid_expression()) + "\n")

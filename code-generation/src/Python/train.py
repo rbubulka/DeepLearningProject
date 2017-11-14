@@ -2,10 +2,10 @@
 ####################################################################
 # Following code is need to allow multiple people to share a GPU.
 # Code limits TensorFlow's use of GPU memory to 0.2 of the maximum.
-# Please don't be greedy with GPU memory until your final production 
+# Please don't be greedy with GPU memory until your final production
 # run.
-import tensorflow as tf         
-from keras import backend as K  # needed for mixing TensorFlow and Keras commands 
+import tensorflow as tf
+from keras import backend as K  # needed for mixing TensorFlow and Keras commands
 config = tf.ConfigProto()
 config.gpu_options.per_process_gpu_memory_fraction = .9
 sess = tf.Session(config=config)
@@ -105,6 +105,3 @@ tests = tokenize(np.array(['(+ 2 1)',
                            '(* 2 (+ 1 1))']))
 print(model.predict(tests))
 model.save(outfile)
-
-
-
